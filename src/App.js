@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, MuiThemeProvider, } from "@material-ui/core/styles";
+import { HashRouter } from "react-router-dom";
 import teal from "@material-ui/core/colors/teal";
 import Header from './components/Header';
 import router from './router';
@@ -52,11 +53,13 @@ function App() {
 
       <MuiThemeProvider theme={theme}>
         <CssBaseline/>
-        <Header handledarkTheme={handledarkTheme} handleLightTheme={handleLightTheme}/>
-        {router}
-        <Box pt={4}>
+          <HashRouter>
+            <Header handledarkTheme={handledarkTheme} handleLightTheme={handleLightTheme}/>
+            {router}
+          </HashRouter>
+          <Box pt={4}>
           <Copyright />
-        </Box>
+          </Box>
       </MuiThemeProvider>
     </div>
   );
