@@ -1,24 +1,63 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { createMuiTheme, MuiThemeProvider, } from "@material-ui/core/styles";
+import teal from "@material-ui/core/colors/teal";
+import Header from './components/Header';
+import router from './router';
+
+
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      {/* <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '} */}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 
 function App() {
+
+  const [changeTheme, setChangeTheme] = React.useState("light")
+
+  const theme = createMuiTheme({
+    palette: {
+      type:changeTheme,
+      primary: teal,
+      
+    
+    }
+  });
+
+
+  const handledarkTheme = () =>{
+    setChangeTheme("dark")
+ }
+
+ const handleLightTheme = () =>{
+  setChangeTheme("light")
+ }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <div>
+
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline/>
+        <Header handledarkTheme={handledarkTheme} handleLightTheme={handleLightTheme}/>
+        {router}
+        <Box pt={4}>
+          <Copyright />
+        </Box>
+      </MuiThemeProvider>
     </div>
   );
 }
