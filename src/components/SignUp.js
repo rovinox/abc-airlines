@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -38,19 +37,25 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     marginTop:"15px",
     height:"200px",
-    // border: "2px red solid",
     justifyContent:"space-evenly"
   },
 }));
 
 export default function SignUp() {
+  
   const classes = useStyles();
-  const inputLabel = React.useRef(null);
-  const [age, setAge] = React.useState('');
 
-  const handleChange = event => {
-    setAge(event.target.value);
-    console.log(age);
+  const [question1, setQuestion1] = React.useState('');
+ 
+
+  React.useEffect(() => {
+    console.log(question1);
+  }, [question1]);
+
+  const handleQuestion1 = event => {
+    setQuestion1(event.target.value);
+   
+  
   };
 
   return (
@@ -116,19 +121,14 @@ export default function SignUp() {
           <Grid className={classes.question}>
           <Typography>1. Please Select a Security Question</Typography>
           <FormControl fullWidth variant="outlined" >
-          <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-          
-          </InputLabel>
           <Select
-          // className={classes.formControl}
           fullWidth
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={age}
-          // labelWidth={labelWidth}
-          onChange={handleChange}
+          value={question1}
+          onChange={handleQuestion1}
           >
-          <MenuItem value={10}>Ten  Agexbfhzdfndjn  wra hb rher r hr</MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
           </Select>
