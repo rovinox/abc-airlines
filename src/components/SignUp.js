@@ -7,6 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 
@@ -28,10 +33,25 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  question: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop:"15px",
+    height:"200px",
+    // border: "2px red solid",
+    justifyContent:"space-evenly"
+  },
 }));
 
 export default function SignUp() {
   const classes = useStyles();
+  const inputLabel = React.useRef(null);
+  const [age, setAge] = React.useState('');
+
+  const handleChange = event => {
+    setAge(event.target.value);
+    console.log(age);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -52,7 +72,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
-              />
+               />
+               <FormHelperText>required</FormHelperText>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -64,6 +85,7 @@ export default function SignUp() {
                 name="lastName"
                 autoComplete="lname"
               />
+              <FormHelperText>required</FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -75,6 +97,7 @@ export default function SignUp() {
                 name="email"
                 autoComplete="email"
               />
+              <FormHelperText>required</FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -87,7 +110,37 @@ export default function SignUp() {
                 id="password"
                 autoComplete="current-password"
               />
+              <FormHelperText>required</FormHelperText>
             </Grid>
+          </Grid>
+          <Grid className={classes.question}>
+          <Typography>1. Please Select a Security Question</Typography>
+          <FormControl fullWidth variant="outlined" >
+          <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+          
+          </InputLabel>
+          <Select
+          // className={classes.formControl}
+          fullWidth
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={age}
+          // labelWidth={labelWidth}
+          onChange={handleChange}
+          >
+          <MenuItem value={10}>Ten  Agexbfhzdfndjn  wra hb rher r hr</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+          </FormControl>
+          <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="answer"
+                name="answer"
+                />
+              <FormHelperText>required</FormHelperText>
           </Grid>
           <Button
             type="submit"
