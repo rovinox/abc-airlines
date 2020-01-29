@@ -3,6 +3,7 @@ const express = require("express")
 const massive = require("massive")
 const session = require("express-session")
 const cors = require("cors")
+const {signUpUser} = require("./AuthController")
 
 const app = express()
 app.use(express.json())
@@ -27,7 +28,7 @@ app.use(session({
 
 }))
 
-
+app.post("/api/createuser", signUpUser)
 
 
 app.listen(SERVER_PORT, ()=> console.log(`linting on ${SERVER_PORT}`))

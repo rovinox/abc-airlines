@@ -54,8 +54,8 @@ const useStyles = makeStyles(theme => ({
    
     },
     picture:{
-      maxWidth:"300px",
-      borderRadius:"50%"
+      maxWidth:"100%",
+      
       
     },
     pictureBtn:{
@@ -140,20 +140,20 @@ export default function SignUp() {
     event.preventDefault();
     setFile(event.target.files);
     setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
-    const formData = new FormData();
-    formData.append('file',file[0]);
-    axios.post(`/test-upload`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      console.log('response: ', response);
-      // setFile()
+    // const formData = new FormData();
+    // formData.append('file',file[0]);
+    // axios.post(`/test-upload`, formData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data'
+    //   }
+    // }).then(response => {
+    //   console.log('response: ', response);
+    //   // setFile()
       
-    }).catch(error => {
+    // }).catch(error => {
       
-      console.log(error)
-    });
+    //   console.log(error)
+    // });
   }
   
 
