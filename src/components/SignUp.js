@@ -13,6 +13,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Camera from "@material-ui/icons/CameraAlt"
 import {questionList} from "./QuestionList"
+import axios from "axios"
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 
 
@@ -76,6 +79,7 @@ export default function SignUp() {
   const [password, setPassword] = React.useState('');
   const [file, setFile] = React.useState(null)
   const [mediaPreview, setMediaPreview] = React.useState("")
+  
  
 
   React.useEffect(() => {
@@ -130,6 +134,8 @@ export default function SignUp() {
     setPassword({[name]: value });
   }
 
+  
+
   const handleFileUpload = event => {
     event.preventDefault();
     setFile(event.target.files);
@@ -142,7 +148,7 @@ export default function SignUp() {
       }
     }).then(response => {
       console.log('response: ', response);
-  
+      // setFile()
       
     }).catch(error => {
       
@@ -152,7 +158,9 @@ export default function SignUp() {
   
 
   const handleAllFilesUpload = event => {
-   
+    event.preventDefault();
+    axios.post("/api/createuser", {question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file})
+    
   }
 
 
@@ -165,7 +173,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleAllFilesUpload}>
             <Grid item xs={12} sm={12}>
               <div className={classes.pictureGrid}>
                 <img className={classes.picture} src={!file ? "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png" : mediaPreview}/>
@@ -330,9 +338,7 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             color="primary"
-            onSubmit={handleAllFilesUpload}
-            
-          >
+            >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
