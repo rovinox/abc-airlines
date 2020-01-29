@@ -45,17 +45,18 @@ const useStyles = makeStyles(theme => ({
     display: 'none',
   },
   pictureGrid:{
-    // display:"flex",
-    // flexDirection:"column",
-    // alignItems:"center",
-    textAlign:"center"
+    display:"flex",
+    flexDirection:"column",
+    alignItems:"center"
    
     },
     picture:{
       maxWidth:"300px",
+      borderRadius:"50%"
+      
     },
     pictureBtn:{
-      margin:"auto 5px"
+      margin:" 5px 0px 5px 0px "
     }
 }));
 
@@ -66,12 +67,21 @@ export default function SignUp() {
   const [question1, setQuestion1] = React.useState('');
   const [question2, setQuestion2] = React.useState('');
   const [question3, setQuestion3] = React.useState('');
+  const [answer1, setAnswer1] = React.useState('');
+  const [answer2, setAnswer2] = React.useState('');
+  const [answer3, setAnswer3] = React.useState('');
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [file, setFile] = React.useState(null)
+  const [mediaPreview, setMediaPreview] = React.useState("")
  
 
   React.useEffect(() => {
-    console.log(questionList);
-  }, [question1, question2, question3]);
+    console.log(question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password, file);
+    
+  }, [question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file]);
 
   const handleQuestion1 = event => {
     setQuestion1(event.target.value);
@@ -85,6 +95,69 @@ export default function SignUp() {
     setQuestion3(event.target.value);
    };
 
+   const handleAnswer1 = event => {
+    const { name, value } = event.target;
+    setAnswer1({[name]: value });
+  }
+
+  const handleAnswer2 = event => {
+    const { name, value } = event.target;
+    setAnswer2({[name]: value });
+  }
+
+  const handleAnswer3 = event => {
+    const { name, value } = event.target;
+    setAnswer3({[name]: value });
+  }
+
+  const handleFirstName = event => {
+    const { name, value } = event.target;
+    setFirstName({[name]: value });
+  }
+  
+  const handleLastName = event => {
+    const { name, value } = event.target;
+    setLastName({[name]: value });
+  }
+
+  const handleEmail = event => {
+    const { name, value } = event.target;
+    setEmail({[name]: value });
+  }
+
+  const handlePassword = event => {
+    const { name, value } = event.target;
+    setPassword({[name]: value });
+  }
+
+  const handleFileUpload = event => {
+    event.preventDefault();
+    setFile(event.target.files);
+    setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
+    const formData = new FormData();
+    formData.append('file',file[0]);
+    axios.post(`/test-upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      console.log('response: ', response);
+  
+      
+    }).catch(error => {
+      
+      console.log(error)
+    });
+  }
+  
+
+  const handleAllFilesUpload = event => {
+   
+  }
+
+
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -93,9 +166,9 @@ export default function SignUp() {
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <div className={classes.pictureGrid}>
-                <img className={classes.picture} src={!file ? "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png" : file}/>
+                <img className={classes.picture} src={!file ? "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png" : mediaPreview}/>
                   <input
                   accept="image/*"
                   className={classes.input}
@@ -103,8 +176,9 @@ export default function SignUp() {
                    multiple
                    label='upload file' 
                    type='file' 
-                  //  onChange={handleFileUpload}
+                   onChange={handleFileUpload}
                   ></input>
+                <FormHelperText>required</FormHelperText>
                 <label htmlFor="contained-button-file">
                <Button className={classes.pictureBtn} color="primary" variant="contained" component="span" >
                  <Camera style={{marginRight:"4px"}}/>
@@ -125,6 +199,7 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={handleFirstName}
                />
                <FormHelperText>required</FormHelperText>
             </Grid>
@@ -137,6 +212,7 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={handleLastName}
               />
               <FormHelperText>required</FormHelperText>
             </Grid>
@@ -149,6 +225,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleEmail}
               />
               <FormHelperText>required</FormHelperText>
             </Grid>
@@ -162,6 +239,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handlePassword}
               />
               <FormHelperText>required</FormHelperText>
             </Grid>
@@ -188,12 +266,13 @@ export default function SignUp() {
                 required
                 fullWidth
                 label="answer"
-                name="answer"
+                name="answer1"
+                onChange={handleAnswer1}
                 />
               <FormHelperText>required</FormHelperText>
           </Grid>
           <Grid className={classes.question}>
-          <Typography>1. Please Select a Security Question</Typography>
+          <Typography>2. Please Select a Security Question</Typography>
           <FormControl fullWidth variant="outlined" >
           <Select
           fullWidth
@@ -214,12 +293,13 @@ export default function SignUp() {
                 required
                 fullWidth
                 label="answer"
-                name="answer"
+                name="answer2"
+                onChange={handleAnswer2}
                 />
               <FormHelperText>required</FormHelperText>
           </Grid>
           <Grid className={classes.question}>
-          <Typography>1. Please Select a Security Question</Typography>
+          <Typography>3. Please Select a Security Question</Typography>
           <FormControl fullWidth variant="outlined" >
           <Select
           fullWidth
@@ -240,7 +320,8 @@ export default function SignUp() {
                 required
                 fullWidth
                 label="answer"
-                name="answer"
+                name="answer3"
+                onChange={handleAnswer3}
                 />
               <FormHelperText>required</FormHelperText>
           </Grid>
@@ -249,7 +330,8 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            onSubmit={handleAllFilesUpload}
+            
           >
             Sign Up
           </Button>
