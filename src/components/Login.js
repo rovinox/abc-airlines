@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import {UserContext} from "./UserContext"
 
 
 
@@ -47,6 +49,36 @@ const useStyles = makeStyles(theme => ({
 export default function Login() {
   const classes = useStyles();
 
+  const {logedin, setLogedin} = useContext(UserContext)
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+
+
+  const handleEmail = event => {
+    const { name, value } = event.target;
+    setEmail({[name]: value });
+    
+  }
+
+  const handlePassword = event => {
+    const { name, value } = event.target;
+    setPassword({[name]: value });
+    
+  }
+   const handleLogin = () => {
+    axios.post("/api/login", {email, password}).then(response =>{
+      console.log(response.data.status);
+      if(response.status===200){
+      setLogedin(true)
+      }else {
+        return
+      }
+    }).catch(err=>console.log(err))
+
+   }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -56,7 +88,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleLogin} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -67,6 +99,7 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleEmail}
             />
             <TextField
               variant="outlined"
@@ -78,6 +111,7 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handlePassword}
             />
         
             <Button

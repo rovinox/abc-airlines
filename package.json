@@ -9,13 +9,18 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "aws-sdk": "^2.610.0",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
+    "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "file-type": "^13.1.2",
+    "fs": "0.0.1-security",
     "massive": "^6.1.4",
+    "multiparty": "^4.2.1",
     "nodemon": "^2.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -24,7 +29,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "(cd server && npm run start) & npm run start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,5 +49,5 @@
     ]
   },
   "main": "server/index.js",
-  "proxy":"http://localhost:4006"
+  "proxy": "http://localhost:4006"
 }

@@ -16,6 +16,7 @@ import {questionList} from "./QuestionList"
 import axios from "axios"
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import { method } from 'bluebird';
 
 
 
@@ -83,7 +84,7 @@ export default function SignUp() {
  
 
   React.useEffect(() => {
-    console.log(question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password, file);
+    
     
   }, [question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file]);
 
@@ -134,27 +135,50 @@ export default function SignUp() {
     setPassword({[name]: value });
   }
 
+  const handleImageUpload = async event => {
+    const files = event.target.files
+    setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
+    const data = new FormData();
+    data.append('file',files[0]);
+    data.append("upload_perset", "amacon-preset")
+    const res = await fetch("https://api.cloudinary.com/v1_1/amacon/image/upload",
+    {
+      method:"POST",
+      body:"data",
+    }) 
+    const image = await res.json()
+    setFile(image.secure_url)
+    console.log(file);
+
+  }
+  
+  
+      
   
 
-  const handleFileUpload = event => {
-    event.preventDefault();
-    setFile(event.target.files);
-    setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
-    // const formData = new FormData();
-    // formData.append('file',file[0]);
-    // axios.post(`/test-upload`, formData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // }).then(response => {
-    //   console.log('response: ', response);
-    //   // setFile()
+  // const handleFileUpload = event => {
+  //   event.preventDefault();
+  
+  //   setFile(event.target.files);
+  //   setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
+  //   const formData = new FormData();
+  //   formData.append('file',file[0]);
+
+  //   axios.post(`/test-upload`, formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   }).then(response => {
+  //     console.log('response: ', response.data.Location);
+  //     // setFile()
       
-    // }).catch(error => {
+  //   }).catch(error => {
       
-    //   console.log(error)
-    // });
-  }
+  //     console.log(error)
+  //   });
+  // }
+
+
   
 
   const handleAllFilesUpload = event => {
@@ -184,7 +208,7 @@ export default function SignUp() {
                    multiple
                    label='upload file' 
                    type='file' 
-                   onChange={handleFileUpload}
+                   onChange={handleImageUpload}
                   ></input>
                 <FormHelperText>required</FormHelperText>
                 <label htmlFor="contained-button-file">

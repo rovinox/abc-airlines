@@ -8,6 +8,7 @@ import { HashRouter } from "react-router-dom";
 import teal from "@material-ui/core/colors/teal";
 import Header from './components/Header';
 import router from './router';
+import { UserContext } from './components/UserContext';
 
 
 
@@ -28,6 +29,7 @@ function Copyright() {
 function App() {
 
   const [changeTheme, setChangeTheme] = React.useState("light")
+  const [logedin, setLogedin] = React.useState(false)
 
   const theme = createMuiTheme({
     palette: {
@@ -50,17 +52,18 @@ function App() {
   return (
     
     <div>
-
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline/>
-          <HashRouter>
-            <Header handledarkTheme={handledarkTheme} handleLightTheme={handleLightTheme}/>
-            {router}
-          </HashRouter>
-          <Box pt={4}>
-          <Copyright />
-          </Box>
-      </MuiThemeProvider>
+      <UserContext.Provider value={{logedin, setLogedin}}>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline/>
+            <HashRouter>
+              <Header handledarkTheme={handledarkTheme} handleLightTheme={handleLightTheme}/>
+              {router}
+            </HashRouter>
+            <Box pt={4}>
+            <Copyright />
+            </Box>
+        </MuiThemeProvider>
+      </UserContext.Provider>
     </div>
   );
 }

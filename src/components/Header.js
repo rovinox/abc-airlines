@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {Link} from "react-router-dom"
+import {Link, withRouter} from "react-router-dom"
 import Theme from './Theme';
+import axios from "axios"
+import {UserContext} from "./UserContext"
+
 // import Profile from "./Profile"
 // import Login from './Login';
 // import SignUp from "./SignUp"
@@ -27,9 +30,29 @@ const useStyles = makeStyles(theme => ({
   }));
 
 
-export default function Header(props) {
+ function Header(props) {
 
+  
     const classes = useStyles();
+
+    const {logedin, setLogedin} = useContext(UserContext)
+
+    React.useEffect(()=>{
+      // axios.get("/api/checkuser").then(user=>{
+      //   if(user){
+      //     setLogedin(true)
+      //   } else{
+      //     setLogedin(false)
+      //   }
+      // })
+    },[])
+
+
+    const handleLogout = () =>{
+      axios.get("/api/logout")
+      props.history.push("/")
+      setLogedin(false)
+    }
 
     return (
         <div className={classes.root}>
@@ -41,20 +64,24 @@ export default function Header(props) {
             <Button color="inherit"><Theme handledarkTheme={props.handledarkTheme}
             handleLightTheme={props.handleLightTheme}/></Button>
 
-            <Link to="/login" className={classes.link}>
-              <Button color="inherit">Login</Button>
-            </Link>
+            {!logedin ? <Link to="/login" className={classes.link}>
+              <Button onChange={handleLogout} color="inherit">Login</Button>
+            </Link> : null}
 
-            <Link to="/signup" className={classes.link}>
+            { !logedin ?<Link to="/signup" className={classes.link}>
             <Button color="inherit">sign up</Button>
-            </Link>
-
-            <Link to="/profile" className={classes.link}>
+            </Link> : null}
+            {logedin ? <Link to="/profile" className={classes.link}>
             <Button color="inherit">profile</Button>
-            </Link>
+            </Link> : null}
+
+            {logedin ?<Button  onClick={handleLogout}>sign out</Button> : null }
+            
 
           </Toolbar>
         </AppBar>
       </div>
     )
 }
+
+export default withRouter(Header)
