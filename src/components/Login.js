@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login() {
+export default function Login(props) {
   const classes = useStyles();
 
   const {logedin, setLogedin} = useContext(UserContext)
@@ -67,13 +67,15 @@ export default function Login() {
     setPassword({[name]: value });
     
   }
-   const handleLogin = () => {
+   const handleLogin = (e) => {
+    e.preventDefault();
     axios.post("/api/login", {email, password}).then(response =>{
-      console.log(response.data.status);
-      if(response.status===200){
+      console.log(response);
+      if(response){
       setLogedin(true)
+      props.history.push("/profile")
       }else {
-        return
+       console.log("server didn't respond");
       }
     }).catch(err=>console.log(err))
 

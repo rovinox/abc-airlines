@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -16,7 +16,7 @@ import {questionList} from "./QuestionList"
 import axios from "axios"
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import { method } from 'bluebird';
+import {UserContext} from "./UserContext"
 
 
 
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
   
   const classes = useStyles();
 
@@ -80,13 +80,14 @@ export default function SignUp() {
   const [password, setPassword] = React.useState('');
   const [file, setFile] = React.useState(null)
   const [mediaPreview, setMediaPreview] = React.useState("")
+  const {logedin, setLogedin} = useContext(UserContext)
   
  
 
   React.useEffect(() => {
     
     
-  }, [question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file]);
+  }, [question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file,]);
 
   const handleQuestion1 = event => {
     setQuestion1(event.target.value);
@@ -135,23 +136,7 @@ export default function SignUp() {
     setPassword({[name]: value });
   }
 
-  const handleImageUpload = async event => {
-    const files = event.target.files
-    setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
-    const data = new FormData();
-    data.append('file',files[0]);
-    data.append("upload_perset", "amacon-preset")
-    const res = await fetch("https://api.cloudinary.com/v1_1/amacon/image/upload",
-    {
-      method:"POST",
-      body:"data",
-    }) 
-    const image = await res.json()
-    setFile(image.secure_url)
-    console.log(file);
-
-  }
-  
+ 
   
       
   
@@ -159,23 +144,12 @@ export default function SignUp() {
   // const handleFileUpload = event => {
   //   event.preventDefault();
   
-  //   setFile(event.target.files);
+  //   setFile(event.target.files[0]);
+    
   //   setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
-  //   const formData = new FormData();
-  //   formData.append('file',file[0]);
-
-  //   axios.post(`/test-upload`, formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     }
-  //   }).then(response => {
-  //     console.log('response: ', response.data.Location);
-  //     // setFile()
-      
-  //   }).catch(error => {
-      
-  //     console.log(error)
-  //   });
+    
+    
+     
   // }
 
 
@@ -184,7 +158,9 @@ export default function SignUp() {
   const handleAllFilesUpload = event => {
     event.preventDefault();
     axios.post("/api/createuser", {question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file})
-    
+    setLogedin(true)
+    props.history.push("/profile") 
+      
   }
 
 
@@ -197,27 +173,10 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        
         <form className={classes.form} onSubmit={handleAllFilesUpload}>
             <Grid item xs={12} sm={12}>
-              <div className={classes.pictureGrid}>
-                <img className={classes.picture} src={!file ? "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png" : mediaPreview}/>
-                  <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                   multiple
-                   label='upload file' 
-                   type='file' 
-                   onChange={handleImageUpload}
-                  ></input>
-                <FormHelperText>required</FormHelperText>
-                <label htmlFor="contained-button-file">
-               <Button className={classes.pictureBtn} color="primary" variant="contained" component="span" >
-                 <Camera style={{marginRight:"4px"}}/>
-                 picture
-               </Button>
-                </label>
-              </div>
+              
             </Grid>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>

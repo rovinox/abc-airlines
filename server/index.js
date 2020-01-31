@@ -8,7 +8,7 @@ const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
 const cors = require("cors")
-const {signUpUser, logout, login,checkUser} = require("./AuthController")
+const {signUpUser, logout, login,checkUser,getUser} = require("./AuthController")
 
 
 const app = express()
@@ -63,6 +63,7 @@ AWS.config.update({
     
     const form = new multiparty.Form();
       form.parse(request, async (error, fields, files) => {
+        console.log(files);
         if (error) throw new Error(error);
         try {
           const path = files.file[0].path;
@@ -82,6 +83,6 @@ app.post("/api/createuser", signUpUser)
 app.get("/api/checkuser",checkUser)
 app.get("/api/logout", logout)
 app.post("/api/login", login)
-
+app.get("/api/getuser",getUser)
 
 app.listen(SERVER_PORT, ()=> console.log(`linting on ${SERVER_PORT}`))

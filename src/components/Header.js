@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
       axios.get("/api/logout")
       props.history.push("/")
       setLogedin(false)
+      console.log("jdjd");
     }
 
     return (

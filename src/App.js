@@ -9,6 +9,7 @@ import teal from "@material-ui/core/colors/teal";
 import Header from './components/Header';
 import router from './router';
 import { UserContext } from './components/UserContext';
+import axios from "axios"
 
 
 
@@ -30,6 +31,19 @@ function App() {
 
   const [changeTheme, setChangeTheme] = React.useState("light")
   const [logedin, setLogedin] = React.useState(false)
+  
+  React.useEffect(()=>{
+      // axios.get("/api/checkuser").then(user=>{
+      //   if(user){
+      //     setLogedin(true)
+      //   } else{
+      //     setLogedin(false)
+      //   }
+      // })
+      console.log(logedin);
+    }, [logedin])
+
+
 
   const theme = createMuiTheme({
     palette: {

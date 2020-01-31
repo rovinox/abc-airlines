@@ -1,61 +1,47 @@
+import axios from "axios"
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Paper from '@material-ui/core/Paper';
+
 
 const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(1),
+      width: theme.spacing(16),
+      height: theme.spacing(16),
+    },
   },
 }));
 
 
 
 
-
-
 export default function Profile() {
-  const classes = useStyles();
-  const [age, setAge] = React.useState('');
 
-  
-  // React.useEffect(() => {
-  //   setLabelWidth(inputLabel.current.offsetWidth);
-  // }, []);
+  const [user, SetUser] = React.useState("")
+  const [userInfo, setUserInfo] = React.useState([])
 
- 
-
-
-  const handleChange = event => {
-    
-    setAge(event.target.value)
+  React.useEffect(()=>{
+    axios.get("/api/checkuser").then(res=>{
    
-  }
-  
+        SetUser(res.data.email)
+
+     
+    }).then(()=>{
+      axios.get("/api/getuser",{user}).then(res=>{
+        console.log(res.data);
+        setUserInfo(res.data)
+      }).catch(err=>{console.log(err);})
+    }).catch(err=>{console.log(err);})
+    
+  }, [user]) 
 
   return (
-    
-      <div>   
-       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl> 
+    <div>
+      profile
     </div>
-  );
+  )
 }
