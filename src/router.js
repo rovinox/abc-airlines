@@ -1,4 +1,4 @@
-import {Switch, Route, HashRouter} from "react-router-dom"
+import {Switch, Route, HashRouter, Redirect} from "react-router-dom"
 import React from "react"
 import Home from "../src/components/Home"
 import SignUp from "./components/SignUp"
@@ -8,15 +8,19 @@ import Login from "./components/Login"
 
 
 
-
-
-export default ( 
-    <HashRouter>
+export default function Router(props) {
+    return (
+        <HashRouter>
         <Switch>
           <Route path="/signup" component={SignUp}/>
           <Route path="/login" component={Login}/>
-          <Route path="/profile" component={Profile}/>
+          <Route path="/profile" render={()=>(props.logedin ? <Profile/> : <Redirect to="/" /> )} />
           <Route path="/" component={Home}/>
        </Switch>
-    </HashRouter>   
-)
+    </HashRouter>
+    )
+}
+
+
+
+

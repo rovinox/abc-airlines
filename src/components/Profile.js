@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
+  name:{
+    padding:"50px 0px"
+  }
+
 }));
 
 
@@ -42,7 +46,7 @@ export default function Profile() {
    const displayUser = userInfo.map(user =>{
      return(
        <Container key={user.user_id}>
-        <Paper>
+        <Paper className={classes.name}>
           <Typography align="center" variant="h3">{user.first_name}{" "}{user.last_name}</Typography>
         </Paper>
         <div className={classes.root}>
@@ -95,8 +99,7 @@ export default function Profile() {
 
   return (
     <div>
-      {displayUser}
-      profile
+        {displayUser}
     </div>
   )
 }

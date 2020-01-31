@@ -20,6 +20,7 @@ import {UserContext} from "./UserContext"
 
 
 
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -61,6 +62,10 @@ const useStyles = makeStyles(theme => ({
     },
     pictureBtn:{
       margin:" 5px 0px 5px 0px "
+    },
+    link:{
+      color:"teal",
+    
     }
 }));
 
@@ -141,17 +146,7 @@ export default function SignUp(props) {
       
   
 
-  // const handleFileUpload = event => {
-  //   event.preventDefault();
   
-  //   setFile(event.target.files[0]);
-    
-  //   setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
-    
-    
-     
-  // }
-
 
   
 
@@ -326,7 +321,7 @@ export default function SignUp(props) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="login" variant="body2">
+              <Link className={classes.link} to="login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

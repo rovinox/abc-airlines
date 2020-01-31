@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
       
     },
     link:{
-      textDecoration:"none"
+      textDecoration:"none",
+      color:"white"
     }
   }));
 
@@ -37,22 +38,14 @@ const useStyles = makeStyles(theme => ({
 
     const {logedin, setLogedin} = useContext(UserContext)
 
-    React.useEffect(()=>{
-      // axios.get("/api/checkuser").then(user=>{
-      //   if(user){
-      //     setLogedin(true)
-      //   } else{
-      //     setLogedin(false)
-      //   }
-      // })
-    },[])
+    
 
 
     const handleLogout = () =>{
       axios.get("/api/logout")
       props.history.push("/")
       setLogedin(false)
-      console.log("jdjd");
+      
     }
 
     return (
@@ -60,8 +53,11 @@ const useStyles = makeStyles(theme => ({
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h4" className={classes.title}>
-              ABC Airlines 
+              <Link to="/" className={classes.link}>
+               ABC Airlines 
+              </Link>
             </Typography>
+            
             <Button color="inherit"><Theme handledarkTheme={props.handledarkTheme}
             handleLightTheme={props.handleLightTheme}/></Button>
 
