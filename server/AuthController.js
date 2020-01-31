@@ -76,13 +76,10 @@ module.exports = {
     },
 
     getUser:(req,res) =>{
-        console.log("body", req.body);
         const db = req.app.get("db")
-        const {user} = req.body
-        console.log("user", user);
+        const {user} = req.params
         db.get_user(user).then(userInfo =>{
-            console.log("userinfo", userInfo);
-            res.status(200).json(userInfo)
+            res.status(200).json(userInfo[0])
         }).catch(err =>{console.log(err)})
     }
 }

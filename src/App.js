@@ -31,6 +31,7 @@ function App() {
 
   const [changeTheme, setChangeTheme] = React.useState("light")
   const [logedin, setLogedin] = React.useState(false)
+  const [user, setUser] = React.useState("")
   
   React.useEffect(()=>{
       // axios.get("/api/checkuser").then(user=>{
@@ -40,8 +41,9 @@ function App() {
       //     setLogedin(false)
       //   }
       // })
+      console.log(user);
       console.log(logedin);
-    }, [logedin])
+    }, [logedin,user])
 
 
 
@@ -66,7 +68,7 @@ function App() {
   return (
     
     <div>
-      <UserContext.Provider value={{logedin, setLogedin}}>
+      <UserContext.Provider value={{logedin, setLogedin, user, setUser}}>
         <MuiThemeProvider theme={theme}>
           <CssBaseline/>
             <HashRouter>

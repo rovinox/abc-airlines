@@ -83,6 +83,6 @@ app.post("/api/createuser", signUpUser)
 app.get("/api/checkuser",checkUser)
 app.get("/api/logout", logout)
 app.post("/api/login", login)
-app.get("/api/getuser",getUser)
+app.get("/api/getuser/:user",getUser)
 
 app.listen(SERVER_PORT, ()=> console.log(`linting on ${SERVER_PORT}`))

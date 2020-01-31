@@ -1,1 +1,1 @@
-SELECT * FROM airlines_user WHERE email = $1 
+SELECT * FROM airlines_user WHERE user_id = $1 ;

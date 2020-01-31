@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 export default function Login(props) {
   const classes = useStyles();
 
-  const {logedin, setLogedin} = useContext(UserContext)
+  const {logedin, setLogedin, user,setUser} = useContext(UserContext)
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -71,6 +71,7 @@ export default function Login(props) {
     e.preventDefault();
     axios.post("/api/login", {email, password}).then(response =>{
       console.log(response);
+      setUser(response.data)
       if(response){
       setLogedin(true)
       props.history.push("/profile")
