@@ -49,8 +49,8 @@ module.exports = {
                             user_id:user[0].user_id
                         }
                        
-                        res.status(200).json(user[0].email)
-                        console.log('user[0].email: ', user[0].email);
+                        res.status(200).json(user[0].user_id)
+                        console.log('user[0].email: ', user[0].user_id);
                         
                     }else{
                         res.status(403).json("Email Or Password Is Incorrect")

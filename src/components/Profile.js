@@ -52,7 +52,7 @@ export default function Profile() {
      return(
        <Container key={user.user_id}>
         <Paper className={classes.name}>
-          <img className={classes.picture} src="https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/87-512.png" />
+          <img className={classes.picture} src={mediaPreview} />
           <Typography align="center" variant="h3">{user.first_name}{" "}{user.last_name}</Typography>
         </Paper>
         <div className={classes.root}>

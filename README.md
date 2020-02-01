@@ -20,7 +20,7 @@ This repository is essentially a bootstrapped [Create React App](https://github.
 
 
 1. Download all the dependencies by excuting ``` npm install``` from within the root directory
-1. Open another terminal to Start up the application by executing ```npm start``` from within the root directory
+1. Start up the application by executing ```npm start``` from within the root directory
 1. Your application should be accessible in your browser via ```http://localhost:3000```
 
 
