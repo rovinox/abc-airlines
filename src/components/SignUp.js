@@ -84,11 +84,11 @@ export default function SignUp(props) {
   const [lastName, setLastName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [media, setMedia] = React.useState("")
-  const [file, setFile] = React.useState(null)
+  
+  
 
 
-  const {setLogedin, setUser} = useContext(UserContext)
+  const {setLogedin, setUser, setMediaPreview, mediaPreview} = useContext(UserContext)
   
  
 
@@ -147,7 +147,12 @@ export default function SignUp(props) {
   }
    
   
-  
+  const handleMedia = event => {
+   
+ setMediaPreview(window.URL.createObjectURL(event.target.files[0]))
+   
+   
+  }
 
   
 
@@ -178,6 +183,27 @@ export default function SignUp(props) {
         </Typography>
         
         <form className={classes.form} onSubmit={handleAllFilesUpload}>
+        <Grid item xs={12} sm={12}>
+              <div className={classes.pictureGrid}>
+                <img className={classes.picture} src={!mediaPreview ? "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png" : mediaPreview}/>
+                  <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                   multiple
+                   label='upload file' 
+                   type='file' 
+                   onChange={handleMedia}
+                  ></input>
+                <FormHelperText>required</FormHelperText>
+                <label htmlFor="contained-button-file">
+               <Button className={classes.pictureBtn} color="primary" variant="contained" component="span" >
+                 <Camera style={{marginRight:"4px"}}/>
+                 picture
+               </Button>
+                </label>
+              </div>
+            </Grid>
            
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>

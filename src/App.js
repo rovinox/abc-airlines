@@ -30,10 +30,11 @@ function App() {
   const [changeTheme, setChangeTheme] = React.useState("dark")
   const [logedin, setLogedin] = React.useState(false)
   const [user, setUser] = React.useState("")
+  const [mediaPreview, setMediaPreview] = React.useState("")
   
   React.useEffect(()=>{
     
-    }, [logedin,user])
+    }, [logedin,user, mediaPreview])
 
 
 
@@ -58,7 +59,7 @@ function App() {
   return (
     
     <div>
-      <UserContext.Provider value={{logedin, setLogedin, user, setUser}}>
+      <UserContext.Provider value={{logedin, setLogedin, user, setUser, mediaPreview, setMediaPreview}}>
         <MuiThemeProvider theme={theme}>
           <CssBaseline/>
             <HashRouter>

@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -21,8 +22,12 @@ const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   name:{
-    padding:"50px 0px"
-  }
+    padding:"50px 0px",
+    textAlign:"center"
+  },
+  picture:{
+    maxHeight:"300px"
+}
 
 }));
 
@@ -31,9 +36,10 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
 
   const classes = useStyles();
-  const {user} = useContext(UserContext)
-  const [userInfo, setUserInfo] = React.useState([])
-
+  const [userInfo, setUserInfo]= React.useState([])
+  const {user,mediaPreview} = useContext(UserContext)
+  
+  
   React.useEffect(()=>{
     
       axios.get(`/api/getuser/${user}`).then(res=>{
@@ -46,6 +52,7 @@ export default function Profile() {
      return(
        <Container key={user.user_id}>
         <Paper className={classes.name}>
+          <img className={classes.picture} src="https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/87-512.png" />
           <Typography align="center" variant="h3">{user.first_name}{" "}{user.last_name}</Typography>
         </Paper>
         <div className={classes.root}>
