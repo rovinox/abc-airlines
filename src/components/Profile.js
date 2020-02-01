@@ -31,15 +31,14 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
 
   const classes = useStyles();
-  const {user, setUser} = useContext(UserContext)
+  const {user} = useContext(UserContext)
   const [userInfo, setUserInfo] = React.useState([])
 
   React.useEffect(()=>{
-   
+    
       axios.get(`/api/getuser/${user}`).then(res=>{
         
-        setUserInfo([res.data])
-        console.log(res.data);
+      setUserInfo([res.data])
     }).catch(err=>{console.log(err);})
     
   }, [user]) 

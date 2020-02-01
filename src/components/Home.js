@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
         display:"flex",
         justifyContent:"center",
         alignItems:"center",
+        marginTop:"40px"
     }    
   }));
 
@@ -23,7 +24,7 @@ export default function Home() {
             <div className="home">
                 <div className="loop">
                     <TextLoop>
-                        <Typography variant="h4" >Eran <bold>40,000</bold> BOUNS MILES</Typography>
+                        <Typography variant="h4" >Eran <b>40,000</b> BOUNS MILES</Typography>
                         <Typography variant="h4">Save Up To $45 On Every Flight</Typography>
                         <Typography variant="h4">It,s Out Way. The ABC Way</Typography>
                         
@@ -31,8 +32,9 @@ export default function Home() {
                 </div>
             </div>
             <div className={classes.textBox}>
-                 <Typography className={classes.text} variant="h6">
-                    <h2>Connections matter to us</h2> 
+                 <Typography className={classes.text}>
+                     <Typography variant="h4" >Connections matter to us</Typography>
+                    <br></br>
                     We’re all on this journey together, and you deserve to feel that we’re with you every step of the way. Our Connections Matter series is a testament to what we can achieve when we put caring at the center of everything we do. Every customer. Every flight. Every day.
                 </Typography>
             </div>

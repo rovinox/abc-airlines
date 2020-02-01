@@ -9,7 +9,6 @@ import teal from "@material-ui/core/colors/teal";
 import Header from './components/Header';
 import Router from './router';
 import { UserContext } from './components/UserContext';
-import axios from "axios"
 import Fotter from './components/Fotter';
 
 

@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 export default function Login(props) {
   const classes = useStyles();
 
-  const {logedin, setLogedin, user,setUser} = useContext(UserContext)
+  const {setLogedin,setUser} = useContext(UserContext)
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

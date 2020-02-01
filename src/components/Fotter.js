@@ -1,5 +1,4 @@
 import React from 'react'
-import Paper from "@material-ui/core/Paper"
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -20,10 +19,10 @@ export default function Fotter() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-facebook-square"></i>
-            <i class="fab fa-twitter-square"></i>
-            <i class="fab fa-snapchat-square"></i>
+            <i className="fab fa-instagram"></i>
+            <i className="fab fa-facebook-square"></i>
+            <i className="fab fa-twitter-square"></i>
+            <i className="fab fa-snapchat-square"></i>
         </div>
     )
 }

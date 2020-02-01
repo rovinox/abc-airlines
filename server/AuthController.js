@@ -7,7 +7,7 @@ module.exports = {
         const {question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file} = req.body
         
        
-        console.log(question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file);
+       
     
          const db = req.app.get("db")
         db.verify_User(email.email).then(userEmail =>{
@@ -38,6 +38,7 @@ module.exports = {
        
 
         const db = req.app.get("db")
+        
         db.verify_User(email.email).then(user =>{
             if(user[0]){
                 bcrypt.compare(password.password, user[0].password).then(matchedPassword =>{
@@ -48,7 +49,8 @@ module.exports = {
                             user_id:user[0].user_id
                         }
                        
-                        res.status(200).json(user[0].user_id)
+                        res.status(200).json(user[0].email)
+                        console.log('user[0].email: ', user[0].email);
                         
                     }else{
                         res.status(403).json("Email Or Password Is Incorrect")
@@ -76,10 +78,14 @@ module.exports = {
     },
 
     getUser:(req,res) =>{
+
         const db = req.app.get("db")
         const {user} = req.params
+        console.log('user befour: ', req.params);
+        
         db.get_user(user).then(userInfo =>{
             res.status(200).json(userInfo[0])
+            console.log('user: ', userInfo[0]);
         }).catch(err =>{console.log(err)})
     }
 }

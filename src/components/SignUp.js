@@ -21,6 +21,7 @@ import {UserContext} from "./UserContext"
 
 
 
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -61,7 +62,7 @@ const useStyles = makeStyles(theme => ({
       
     },
     pictureBtn:{
-      margin:" 5px 0px 5px 0px "
+      margin:" 10px 0px 10px 0px "
     },
     link:{
       color:"teal",
@@ -83,16 +84,18 @@ export default function SignUp(props) {
   const [lastName, setLastName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [media, setMedia] = React.useState("")
   const [file, setFile] = React.useState(null)
-  const [mediaPreview, setMediaPreview] = React.useState("")
-  const {logedin, setLogedin} = useContext(UserContext)
+
+
+  const {setLogedin, setUser} = useContext(UserContext)
   
  
 
   React.useEffect(() => {
     
     
-  }, [question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file,]);
+  }, [question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password]);
 
   const handleQuestion1 = event => {
     setQuestion1(event.target.value);
@@ -134,16 +137,16 @@ export default function SignUp(props) {
   const handleEmail = event => {
     const { name, value } = event.target;
     setEmail({[name]: value });
+    
+    
   }
 
   const handlePassword = event => {
     const { name, value } = event.target;
     setPassword({[name]: value });
   }
-
- 
+   
   
-      
   
 
   
@@ -152,9 +155,14 @@ export default function SignUp(props) {
 
   const handleAllFilesUpload = event => {
     event.preventDefault();
-    axios.post("/api/createuser", {question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password,file})
-    setLogedin(true)
-    props.history.push("/profile") 
+    axios.post("/api/createuser", {question1, question2, question3,answer1,answer2,answer3,firstName,lastName,email,password}).then(res =>{
+      if(res.data){
+        setUser(res.data)
+        setLogedin(true)
+        props.history.push("/profile") 
+      }
+
+    }).catch(err =>console.log(err))
       
   }
 
@@ -170,9 +178,7 @@ export default function SignUp(props) {
         </Typography>
         
         <form className={classes.form} onSubmit={handleAllFilesUpload}>
-            <Grid item xs={12} sm={12}>
-              
-            </Grid>
+           
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
 
