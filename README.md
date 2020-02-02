@@ -34,6 +34,7 @@ This repository is essentially a bootstrapped [Create React App](https://github.
 Note: you do need to connect to the [PostgreSql](https://www.postgresql.org/) database login or sign up.
 
 1. Create a ```.env``` file in the root directory
+1.  Create a variable ```SERVER_PORT = 4006```
 1. Create a variable ```CONNECTING_STRING = your connecting string/URI``` make sure to add ```?ssl=true``` to the end of your URI. it would look like this ```CONNECTING_STRING = MyURI?ssl=true```
 1. create a airlines_user table on your database and rows are:
 1. user_id primary key
