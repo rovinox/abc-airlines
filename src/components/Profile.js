@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     padding:"50px 0px",
     textAlign:"center"
   },
-  picture:{
+  picture1:{
     maxHeight:"300px"
 }
 
@@ -52,7 +52,7 @@ export default function Profile() {
      return(
        <Container key={user.user_id}>
         <Paper className={classes.name}>
-          <img className={classes.picture} src={mediaPreview} />
+          <img className={classes.picture1} src={mediaPreview} />
           <Typography align="center" variant="h3">{user.first_name}{" "}{user.last_name}</Typography>
         </Paper>
         <div className={classes.root}>

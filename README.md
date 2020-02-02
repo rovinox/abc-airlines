@@ -18,7 +18,7 @@
 
 
 
-## Setup
+## Setup Front-End
 
 This repository is essentially a bootstrapped [Create React App](https://github.com/facebookincubator/create-react-app) project with some slight modifications. Head over to their Github page for more documentation. To get started you will want to:
 
@@ -28,6 +28,30 @@ This repository is essentially a bootstrapped [Create React App](https://github.
 1. Your application should be accessible in your browser via ```http://localhost:3000```
 
 
+## Setup Back-End
 
 
-That's it! From this point on you can go wild with repository.
+Note: you do need to connect to the [PostgreSql](https://www.postgresql.org/) database login or sign up.
+
+1. Create a ```.env``` file in the root directory
+1. Create a variable ```CONNECTING_STRING = your connecting string/URI``` make sure to add ```?ssl=true``` to the end of your URI. it would look like this ```CONNECTING_STRING = MyURI?ssl=true```
+1. create a airlines_user table on your database and rows are:
+1. user_id primary key
+1. email
+1. password
+1. first_name
+1. last_name
+1. question1 
+1. question2 
+1. question3
+1. answer1
+1. answer2
+1. answer3
+1. imagge
+
+when you done with all that you need to start your back-end server by executing ```nodemon``` from within the root directory
+that's all you need have fun
+
+
+
+
